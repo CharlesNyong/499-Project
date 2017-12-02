@@ -35,9 +35,9 @@ ob_start();
 						<p><a onclick = "showResult(2);">View total sales</a></p>
 					</div>
 					
-					<div id ="queries" style="cursor: pointer;">
+					<!-- <div id ="queries" style="cursor: pointer;">
 						<p><a onclick = "showResult();">View all sales per product by year</a></p>
-					</div>
+					</div> -->
 					
 					<div id ="queries" style="cursor: pointer;">
 						<p><a onclick = "showResult(4);">View all sales per country</a></p>
