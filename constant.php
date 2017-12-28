@@ -33,6 +33,29 @@ $arrColumnToShow = array(1 => array("ProductName", "Country", "OrderDate"),
 
 						   7 =>		"SELECT ShipmentDate, ShipmentService, DeliveryStatus FROM tblshipment WHERE DeliveryStatus = 'Delivered'"			  
 
- 						);	
+ 						);
 
+// constants for each queryID
+ define(ALL_SALES_ORDER, 1);
+ define(TOTAL_SALES, 2);
+ define(PRODUCT_PER_YEAR, 3);
+ define(SALES_PER_COUNTRY, 4);
+ define(CANCELLED_ORDERS, 5);
+ define(FAILED_SHIPMENT, 6);
+ define(DELIVERED_SHIPMENT, 7);
+
+// constants for each y-axis "display text"
+ $arrY_AxisText = array(ALL_SALES_ORDER => "Frequently purchased",
+ 						TOTAL_SALES => "Total Sales($)",
+ 						PRODUCT_PER_YEAR => "Total Sales For Product($)",
+ 						SALES_PER_COUNTRY => "Total Sales($) Made",
+ 						FAILED_SHIPMENT => "Failure Rate"
+ 						);
+
+ $arrDescriptionText = array(ALL_SALES_ORDER => "All Sales Order",
+ 							TOTAL_SALES => "Total Sales Per Date",
+ 							SALES_PER_COUNTRY => "Total Sales Per Country",
+ 							FAILED_SHIPMENT => "Failure Rate Per Service"
+ 							);
+ 
 ?>

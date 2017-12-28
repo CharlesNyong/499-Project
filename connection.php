@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/Toronto'); // used to avoid warnings
  /*establish database connection with database information*/
  $arrLocal_IP = array("127.0.0.1", "::1"); // ip address for local servers
 if(in_array($_SERVER["REMOTE_ADDR"], $arrLocal_IP)){
