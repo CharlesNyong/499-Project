@@ -52,7 +52,7 @@ ob_start();
 	<!--Data table files -->
 	<script src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" type="text/css" href=".\queryResult.css">
+	<link rel="stylesheet" type="text/css" href="499_CSS/queryResult.css">
 	<script>
 		$(document).ready(function() {
 			$('#data').DataTable();	

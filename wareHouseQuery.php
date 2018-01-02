@@ -5,7 +5,7 @@ ob_start();
 <html> 
      <head>
 	       <title>This is a DataWarehouse Quering System Prototype</title>
-		   <link rel = "stylesheet" type = "text/css" href = "mystyle.css">
+		   <link rel = "stylesheet" type = "text/css" href = "499_CSS/mystyle.css">
 	<script type="text/javascript">
 		function showResult(intQueryID){
 			//alert("ID: " + intQueryID);
