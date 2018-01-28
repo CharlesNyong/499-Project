@@ -3,25 +3,7 @@ include("common.php");
 
 /*TODO: use a css class to change field color when user clicks edit*/ 
 
-// if post is empty or the update has been clicked then set all field readonly
-if(empty($_POST)){
-    $readOnlyAttr = readonly;
-    $editStateCSS = "";    
-    $styleAttr = "border:0 none;";
-}
-else if($_POST["blnSave"] == 1){
-    $arrUpdates = generateArrayFromPost($_POST);
-    updateProductInfo($arrUpdates);
-    $readOnlyAttr = readonly;
-    $styleAttr = "border: 0 none;";
-}
-else if($_POST["blnEdit"] == 1){
-    $styleAttr = "border: 0 none; background-color:#FFE4B5;"; // set the css for the edit state
-    $readOnlyAttr = "";   
-}
-//$editStateCSS = $readOnlyAttr ? inputReadonly : "";
-
-$arrProducts = loadAllProducts();
+$arrOutput = getAllSalesPerProduct();
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -165,7 +147,7 @@ ob_start();
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">All Products</h3>
+                        <h3 class="text-themecolor">All Customers</h3>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -177,56 +159,44 @@ ob_start();
                 <div class="row">
                     <!-- column -->
                     <? //var_dump($_POST);?>
-                    <? //var_dump($arrUpdates); ?>
+                    <? //var_dump($arrCustomers); ?>
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Products</h4>
-                                <h6 class="card-subtitle">click each column to begin updatting</h6>
-                                <div class="table-responsive" style="overflow-y:scroll;">
-                                    <form id="editFrm" action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Product Name</th>
-                                                    <th>Product Manufacturer</th>
-                                                    <th>Product Price</th>
-                                                    <th>Quantity</th>
-                                                </tr>
-                                            </thead>
-                                                <tbody>
-                                                    <?  $intCount = 1;
-                                                        $strNameAttr = "";
-                                                        $strValueAttr = "";
-                                                        foreach ($arrProducts as $intProductID => $arrRows) {
-                                                            $strNameAttr = "";
+                                <h4 class="card-title">All Orders</h4>
+                                <div class="table-responsive">
+                                    <table width="100%" border="1" id="data" class="display" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                               <!--  <th>#</th> -->
+                                                <th>Year</th>
+                                                <th>Product Name</th>
+                                                <th>Sales ($)</th>
+                                            </tr>
+                                        </thead>
+                                            <tbody>
+                                                <?
+                                                    foreach ($arrOutput as $dtmYear => $arrYearProductSum) {
+                                                            //echo "Year: ". $dtmYear. " ";
+                                                        foreach ($arrYearProductSum as $strProductName => $intTotal) {
+                                                            //echo "Product: ". $strProductName;
                                                             ?>
                                                             <tr>
-                                                                <td><?echo $intCount?></td>
-                                                                <?foreach ($arrRows as $strCol => $strColVal){?>
-                                                                    <?if($strCol == "ProductID"){ 
-                                                                      continue;         
-                                                                    }
-                                                                    else{?>
-                                                                        <?  $strNameAttr = $intProductID."-".$strCol;
-                                                                            $strValueAttr = $strColVal;
-                                                                            $strColData = ($strCol == "ProductPrice")? "$".$strColVal : $strColVal
-                                                                        ?>
-                                                                       <td><input style='<?echo $styleAttr;?>' type="text" value="<?echo $strColData;?>" name="<?echo $strNameAttr;?>" <?echo $readOnlyAttr?>></td> 
-                                                                    <?}?> 
-                                                                <?}?>
+                                                                <td>
+                                                                    <?echo $dtmYear; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?echo $strProductName;?>
+                                                                </td>
+                                                                <td>
+                                                                    <?echo "$".$intTotal;?>
+                                                                </td>
                                                             </tr>
-                                                        <? $intCount ++;
-                                                        }?>
-                                                </tbody>
-                                        </table>
-                                        <span style="margin-left:3px;"><button onclick="editContact()"> Edit <img src="images/editIcon.jpg" width="25" height="30"/></button>
-                                        &nbsp;&nbsp;<button onclick="updateContact()">Save <img src="images/saveCheckmark.png" width="25" height="30"/></button>
-                                        </span>
-                                        <input type="hidden" id="blnEdit" name="blnEdit" value="0"></input>
-                                        <input type="hidden" id="blnSave" name="blnSave" value="0"></input>
-                                    </form>
+                                                        <?}
+                                                    }
+                                                ?>
+                                            </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +213,7 @@ ob_start();
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer">
-                © 2017 Products
+                Customers   
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -271,8 +241,15 @@ ob_start();
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
+    <!--Data table files -->
+    <script src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
     
     <script>
+        $(document).ready(function() {
+            $('#data').DataTable(); 
+        });
+
         function editContact(){
             document.getElementById("blnEdit").value = 1;
             document.getElementById("editFrm").submit();
@@ -288,41 +265,4 @@ ob_start();
 <? $strHTML .= ob_get_contents(); // get content from output buffer
     ob_end_clean(); // clean output buffer
     echo $strHTML;
-
-
-    function generateArrayFromPost($arrPost){
-        $arrayUpdates = array();
-        $arrElements = array();
-        $blnFirstTime = true;
-        $intCount = 0;
-        foreach ($arrPost as $strKey => $strValue) {
-            $intCount++;
-            if($strKey != "blnEdit" && $strKey != "blnSave"){
-                $arrTokens = explode("-", $strKey); // key is of the form ["ID-ColumnName"]
-                if($blnFirstTime){ 
-                    $strPrevKey = $arrTokens[0];
-                    $blnFirstTime = false;
-                }
-                
-                // map a productID to it row data
-                // || $intCount == (count($arrPost)-2)
-                if(($strPrevKey != $arrTokens[0])){
-                   // echo "Count: ". $intCount;
-                    $arrayUpdates[$strPrevKey] = $arrElements;
-                    $strPrevKey = $arrTokens[0];
-                    $arrElements = array();
-                }
-                else if($intCount == (count($arrPost)-2)){
-                    $arrElements[$arrTokens[1]] = $strValue;
-                    $arrayUpdates[$strPrevKey] = $arrElements;
-                    $strPrevKey = $arrTokens[0];
-                    $arrElements = array();    
-                }
-                $arrElements[$arrTokens[1]] = $strValue;  // map each product column to value    
-            }            
-        }
-
-        //var_dump($arrayUpdates);
-        return $arrayUpdates;
-    }
 ?>          

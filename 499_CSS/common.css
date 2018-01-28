@@ -1,11 +1,13 @@
 /*used in the admin page*/
 #resultTable{
-	width: 1200px;
+	width: 920px;
 	/*position: absolute;
-	top: -99px;*/
-	
+	top: -99px;*/	
 }
 
+.tableContainer{
+	width: 1200px;
+}
 /*used in the admin page*/
 .topMargin{
 	margin-top: -9px;

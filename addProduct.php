@@ -116,6 +116,11 @@ ob_start();
                             </a>
                         </li>
                         <li> 
+                            <a class="waves-effect waves-dark" href="http://localhost/499_Project/admin_loginPage.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Log out </span>
+                            </a>
+                        </li>
+                        <li> 
                             <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
                             <span class="hide-menu">Data Warehouse </span>
                             </a>

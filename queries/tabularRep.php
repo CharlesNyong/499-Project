@@ -11,7 +11,7 @@ if($_SESSION["queryID"]){
     global $arrCurrencyCodeMap;
     global $arrDescriptionText;
 
-     $strGraphDesc = $arrDescriptionText[$intQueryID];
+    $strGraphDesc = $arrDescriptionText[$intQueryID];
     
 }
 
@@ -300,7 +300,7 @@ ob_start();
 
     function executeQuery($intID){
         $arrReturn;
-        global $connection;
+        $connection = getConnection(WAREHOUSE_DB); 
         global $arrQueryMapping;
         $arrTemp = array();
         $arrProductAndTotal = array();
@@ -314,17 +314,17 @@ ob_start();
         $intRowCount = 0;
         while ($arrRow = mysqli_fetch_assoc($rsResult)) {
             $intRowCount ++;
-            if($intID == 1 || $intID == 5 || $intID == 6 || $intID == 7){
+            if($intID == ALL_SALES_ORDER || $intID == CANCELLED_ORDERS || $intID == FAILED_SHIPMENT || $intID == DELIVERED_SHIPMENT){
                 $arrReturn[] = $arrRow;
             }
-            else if($intID == 2){       
+            else if($intID == TOTAL_SALES){       
                 foreach ($arrRow as $strkey => $mixVal) {
                     $strElement = ($strkey == "Total") ? "$".$mixVal : $mixVal;
                     $arrTemp[$strkey] = $strElement;
                 }
                 $arrReturn[] = $arrTemp;
             }
-            else if($intID == 3){
+            else if($intID == PRODUCT_PER_YEAR){
                 $dtmYear = explode("-", $arrRow["Year"])[0];
                 //echo "Year: ".$dtmYear ." ";
                 if($blnFirstTime){
@@ -353,7 +353,7 @@ ob_start();
                 //echo " RowCount == ". $intRowCount. " SQL count: ". $intNum_Rows;
                 $blnFirstTime = false;  
             }
-            else if ($intID == 4){
+            else if ($intID == SALES_PER_COUNTRY){
                 foreach ($arrRow as $strkey => $mixVal) {
                     $strElement = ($strkey == "Total") ? "$".$mixVal : $mixVal;
                     $arrTemp[$strkey] = $strElement;

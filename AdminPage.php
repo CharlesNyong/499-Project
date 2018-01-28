@@ -1,6 +1,13 @@
 <?php
 include("common.php");
-$arrProducts = loadAllProducts();
+session_start();
+
+if(!$_SESSION["blnAuthenticated"]){
+    header("Location: http://localhost/499_Project/admin_loginPage.php");
+}
+else{
+    $arrProducts = loadAllProducts();
+}
 //var_dump($arrProducts);
 ob_start();
 ?>
@@ -111,13 +118,23 @@ ob_start();
                             <span class="hide-menu">Delete Products</span></a>
                         </li>
                         <li> 
-                            <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
-                            <span class="hide-menu">View Users</span>
+                            <a class="waves-effect waves-dark" href="viewOrders.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">View sales order</span>
                             </a>
                         </li>
                         <li> 
-                            <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
-                            <span class="hide-menu">Data Warehouse </span>
+                            <a class="waves-effect waves-dark" href="viewProductSales.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Sales per product</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewCustomerInfo.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">View Customer Info</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="http://localhost/499_Project/admin_loginPage.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Log out </span>
                             </a>
                         </li>
                     </ul>
@@ -155,7 +172,7 @@ ob_start();
                     <div class="col-lg-9 col-md-12">
                        <!--  <div class="card"> -->
                             <div class="card-body">
-                                <div class="d-flex">
+                                <div class="tableContainer">
                                     <div id="resultTable" class="topMargin rightMargin">
                                         <table width="100%" border="1" id="data" class="display" cellspacing="0">
                                             <thead> 
@@ -184,49 +201,6 @@ ob_start();
                                     </div>
                                 </div>
                            <!--  </div> -->
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- visit charts-->
-                    <!-- ============================================================== -->
-                    <div class="col-lg-3 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title"><span class="lstick"></span>Visit Separation</h4>
-                                <div id="visitor" style="height:250px; width:100%;"></div>
-                                <table class="table vm font-14">
-                                    <tr>
-                                        <td class="b-0">Mobile</td>
-                                        <td class="text-right font-medium b-0">38.5%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tablet</td>
-                                        <td class="text-right font-medium">30.8%</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- ============================================================== -->
-                <!-- Blog and website visit -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-lg-8 col-xlg-9">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <h4 class="card-title"><span class="lstick"></span>Website Visit</h4>
-                                    <ul class="list-inline m-b-0 ml-auto">
-                                        <li>
-                                            <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Site A view</h6> </li>
-                                        <li>
-                                            <h6 class="text-muted text-info"><i class="fa fa-circle font-10 m-r-10"></i>Site B view</h6> </li>
-                                    </ul>
-                                </div>
-                                <div class="website-visitor p-relative m-t-30" style="width:100%;"></div>
-                            </div>
                         </div>
                     </div>
                 </div>

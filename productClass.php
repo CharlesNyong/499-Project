@@ -1,5 +1,6 @@
 <?php
 include_once("connection.php");
+include_once("constant.php");
 
 	class product {
 
@@ -7,22 +8,24 @@ include_once("connection.php");
 		var $strProductName;
 		var $strProductManufacturer;
 		var $strProductPrice;
-		var $intProductQuantity;	
+		var $intProductQuantity;
+		var $connection;	
 		//var $arrProducts;
 
 		// constructor with an empty default parameter
 		public function __construct($intProductID = ""){ 
 			$this->intProductID = $intProductID;
+			$this->connection = getConnection(RETAIL_DB);
 		}
 
 		public function getProductByID($intProductID){
 			$arrReturn = array();
-			global $connection;
+			
 
 			$strSQL = "SELECT * FROM tblProduct
 						WHERE ProductID = ". $intProductID;
 
-			$rsResult = mysqli_query($connection, $strSQL);
+			$rsResult = mysqli_query($this->connection, $strSQL);
 
 			while($arrRow = mysqli_fetch_assoc($rsResult)){
 				$arrReturn[$arrRow["ProductID"]] = $arrRow;
@@ -32,22 +35,22 @@ include_once("connection.php");
 		}
 
 		public function deleteProduct(){
-			global $connection;
+			
 
 			$strSQL = "DELETE FROM tblProduct WHERE ProductID = $this->intProductID";
 
-			$rsResult = mysqli_query($connection, $strSQL);
+			$rsResult = mysqli_query($this->connection, $strSQL);
 
 			//echo "Query: ". $strSQL;
 		}
 
 		public function getAllProducts(){
 			$arrReturn = array();
-			global $connection;
+			
 
 			$strSQL = "SELECT * FROM tblProduct";
 
-			$rsResult = mysqli_query($connection, $strSQL);
+			$rsResult = mysqli_query($this->connection, $strSQL);
 
 			while($arrRow = mysqli_fetch_assoc($rsResult)){
 				$arrReturn[$arrRow["ProductID"]] = $arrRow;
@@ -94,7 +97,7 @@ include_once("connection.php");
 		}
 
 		public function insertProduct(){
-			global $connection;
+			
 			$strProductName = $this->getProductName();
 			$strManufacturer = $this->getProductManufacturer();
 			$strProductPrice = $this->getProductPrice();
@@ -104,14 +107,14 @@ include_once("connection.php");
 						(ProductName, ProductManufacturer, ProductPrice, ProductQuantityInStore)	
 						VALUES ('$strProductName', '$strManufacturer', '$strProductPrice', '$intQuantity')";
 
-			$rsResult = mysqli_query($connection, $strSQL);	
+			$rsResult = mysqli_query($this->connection, $strSQL);	
 
 			// if($rsResult){
 			// 	echo "Product successfully Created";
 			// }
 		}
 		public function updateProducts($arrProductsToUpdate){
-			global $connection;
+			
 			$arrOldProducts = $this->getAllProducts();
 			//var_dump($arrProductsToUpdate);
 
@@ -146,7 +149,7 @@ include_once("connection.php");
 							SET ProductName = '".$this->getProductName()."',"." ProductManufacturer = '".$this->getProductManufacturer()."',".
 							" ProductPrice = '".$this->getProductPrice()."',"." ProductQuantityInStore = '".$this->getProductQuantity()."'
 							 WHERE ProductID = '$intProductID' ";
-				$rsResult = mysqli_query($connection, $strSQL);	
+				$rsResult = mysqli_query($this->connection, $strSQL);	
 				//echo " Query: ". $strSQL;
 			}
 			// if($rsResult){

@@ -5,12 +5,19 @@ session_start();
 $arrDataPoint = array();
 $strY_AxisDisplay = "";
 $strGraphDesc = "";
+
+// save the queryID in a session upon first entry into this page
 if($_POST["queryID"]){
     $_SESSION["queryID"] = $_POST["queryID"];    
 }
+// set the queryID to the one that has been posted or the one in the session
 $intQueryID = ($_POST["queryID"])? $_POST["queryID"] : $_SESSION["queryID"];
 
-if($_POST["queryID"] || $_SESSION["queryID"]){
+// redirect to the table page if query doesn't need graphs
+if($intQueryID == CANCELLED_ORDERS || $intQueryID == DELIVERED_SHIPMENT){
+    header("location:http://localhost/499_Project/queries/tabularRep.php");
+}
+if($intQueryID){
     $arrOutput = executeQuery($intQueryID);
     //print_r($arrOutput);
     global $arrColumnToShow;
@@ -31,7 +38,18 @@ if($_POST["queryID"] || $_SESSION["queryID"]){
             $strGraphDesc = "Product Sales For ".$arrKeys[0];
         }       
     }
-    else if($intQueryID == ALL_SALES_ORDER || $intQueryID == FAILED_SHIPMENT){
+    else if($intQueryID == ALL_SALES_ORDER){ 
+        if($_POST["year"]){ // use the selected key
+            $arrDataPoint = generateYearlyDataPoint($arrOutput, $_POST["year"]);
+            $strGraphDesc = "Sales Order For ".$_POST["year"];
+        }
+        else{ // use the first key as a default filter for the graph
+            $arrKeys = array_keys($arrOutput);
+            $arrDataPoint = generateYearlyDataPoint($arrOutput, $arrKeys[0]);
+            $strGraphDesc = "Sales Order For ".$arrKeys[0];
+        }       
+    }
+    else if($intQueryID == FAILED_SHIPMENT){
         $arrDataPoint = generateCountDataPoint($arrOutput);
     }
     else if($intQueryID == TOTAL_SALES){
@@ -361,7 +379,7 @@ ob_start();
             var y_axisText = ""; 
             
             // hide the filter for all query except query 3
-            if(intJsQueryID != '<?echo PRODUCT_PER_YEAR?>'){
+            if(intJsQueryID != '<?echo PRODUCT_PER_YEAR?>' && intJsQueryID != '<?echo ALL_SALES_ORDER?>'){
                 // hide the graph for query 5 and 7
                 if((intJsQueryID == '<?echo CANCELLED_ORDERS?>') || (intJsQueryID == '<?echo DELIVERED_SHIPMENT?>')){
                     hide("frmDiv");
@@ -371,7 +389,7 @@ ob_start();
                     y_axisText = "<?echo $strY_AxisDisplay?>";
                 }
             }
-            else if (intJsQueryID == '<?echo PRODUCT_PER_YEAR?>') {
+            else if (intJsQueryID == '<?echo PRODUCT_PER_YEAR?>' || intJsQueryID == '<?echo ALL_SALES_ORDER?>') {
                 show("year_select");
                 y_axisText = "<?echo $strY_AxisDisplay?>";
             }
@@ -433,10 +451,11 @@ ob_start();
 
     function executeQuery($intID){
         $arrReturn;
-        global $connection;
+        $connection = getConnection(WAREHOUSE_DB);
         global $arrQueryMapping;
         $arrTemp = array();
         $arrProductAndTotal = array();
+        $arrProductAndCount = array();
         $strSQL = $arrQueryMapping[$intID];
         $rsResult = mysqli_query($connection, $strSQL);
         $arrYearProductSum = array();
@@ -447,17 +466,17 @@ ob_start();
         $intRowCount = 0;
         while ($arrRow = mysqli_fetch_assoc($rsResult)) {
             $intRowCount ++;
-            if($intID == 1 || $intID == 5 || $intID == 6 || $intID == 7){
+            if($intID == CANCELLED_ORDERS || $intID == FAILED_SHIPMENT || $intID == DELIVERED_SHIPMENT){
                 $arrReturn[] = $arrRow;
             }
-            else if($intID == 2){       
+            else if($intID == TOTAL_SALES){       
                 foreach ($arrRow as $strkey => $mixVal) {
                     $strElement = ($strkey == "Total") ? "$".$mixVal : $mixVal;
                     $arrTemp[$strkey] = $strElement;
                 }
                 $arrReturn[] = $arrTemp;
             }
-            else if($intID == 3){
+            else if($intID == PRODUCT_PER_YEAR){ // map products to total per year
                 $dtmYear = explode("-", $arrRow["Year"])[0];
                 //echo "Year: ".$dtmYear ." ";
                 if($blnFirstTime){
@@ -486,7 +505,36 @@ ob_start();
                 //echo " RowCount == ". $intRowCount. " SQL count: ". $intNum_Rows;
                 $blnFirstTime = false;  
             }
-            else if ($intID == 4){
+            else if($intID == ALL_SALES_ORDER){
+                $dtmYear = explode("-", $arrRow["Year"])[0];
+                //echo "Year: ".$dtmYear ." ";
+                if($blnFirstTime){
+                    $prevYear = explode("-", $arrRow["Year"])[0];
+                    // echo "Prev Year: ". $prevYear;
+                }
+                //echo " RowCount = ". $intRowCount ." ";
+                // if a key does exist update the amount for it
+                if(array_key_exists($arrRow["ProductName"], $arrProductAndCount) == true && ($dtmYear == $prevYear)){
+                    $intCount = $arrProductAndCount[$arrRow["ProductName"]]; // get old amount 
+                    $intCount +=1;  // increment counter for this product
+                    $arrProductAndCount[$arrRow["ProductName"]] = $intCount; // insert updated amount
+                }   // if the 
+                else if(array_search($arrRow["ProductName"], $arrProductAndCount) == false && ($dtmYear == $prevYear)){
+                    $arrProductAndCount[$arrRow["ProductName"]] = 1;
+                }
+                if(($dtmYear != $prevYear) || ($intRowCount == $intNum_Rows)){ 
+                    // map each year to it sum
+                    $arrReturn[$prevYear] = $arrProductAndCount;
+                    $prevYear = $dtmYear; // reset previous year variable
+                    // discard previous items in product-Total mapping
+                    $arrProductAndCount = array();
+                    $arrProductAndCount[$arrRow["ProductName"]] = 1;
+                    
+                }
+                //echo " RowCount == ". $intRowCount. " SQL count: ". $intNum_Rows;
+                $blnFirstTime = false;  
+            }
+            else if ($intID == SALES_PER_COUNTRY){
                 foreach ($arrRow as $strkey => $mixVal) {
                     $strElement = ($strkey == "Total") ? "$".$mixVal : $mixVal;
                     $arrTemp[$strkey] = $strElement;
