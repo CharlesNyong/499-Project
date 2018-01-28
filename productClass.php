@@ -16,32 +16,42 @@ include_once("constant.php");
 		public function __construct($intProductID = ""){ 
 			$this->intProductID = $intProductID;
 			$this->connection = getConnection(RETAIL_DB);
+			if($intProductID != ""){
+				$this->loadProductByID($this->intProductID);
+			}	
 		}
 
-		public function getProductByID($intProductID){
+		// this set/populates the class variables based on the given productID
+		public function loadProductByID($intProductID=""){
 			$arrReturn = array();
-			
+			$intNewProductID = ($intProductID == "")? $this->intProductID : $intProductID; 
 
 			$strSQL = "SELECT * FROM tblProduct
-						WHERE ProductID = ". $intProductID;
+						WHERE ProductID = ". $intNewProductID;
 
 			$rsResult = mysqli_query($this->connection, $strSQL);
+			$arrRow = mysqli_fetch_assoc($rsResult);
+			
+			// set class variables based on Product ID
+			$this->setProductName($arrRow["ProductName"]);
+			$this->setProductManufacturer($arrRow["ProductManufacturer"]);
+			$this->setProductPrice($arrRow["ProductPrice"]);
+			$this->setProductQuantity($arrRow["ProductQuantityInStore"]);
+			
 
-			while($arrRow = mysqli_fetch_assoc($rsResult)){
-				$arrReturn[$arrRow["ProductID"]] = $arrRow;
-			}
-
-			return $arrReturn;			
+			//return $arrReturn;			
 		}
+
+
 
 		public function deleteProduct(){
 			
-
-			$strSQL = "DELETE FROM tblProduct WHERE ProductID = $this->intProductID";
+			$intProductID = $this->intProductID;
+			$strSQL = "DELETE FROM tblProduct WHERE ProductID = '$intProductID' ";
 
 			$rsResult = mysqli_query($this->connection, $strSQL);
 
-			//echo "Query: ". $strSQL;
+			//echo "<center>Query: ". $strSQL."</center>";
 		}
 
 		public function getAllProducts(){
