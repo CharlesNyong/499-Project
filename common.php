@@ -102,7 +102,6 @@ function loadAllProducts(){
 function updateProductInfo($arrItemsToUpdates){
 	$objProduct = new product();
 	$objProduct->updateProducts($arrItemsToUpdates);
-	//return ($objProduct->getAllProducts());
 }
 
 function saveProduct($arrPost){
