@@ -133,6 +133,16 @@ ob_start();
                             </a>
                         </li>
                         <li> 
+                            <a class="waves-effect waves-dark" href="viewCancelledOrders.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Cancelled Orders</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewFailedShipment.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Failed Shipments</span>
+                            </a>
+                        </li>
+                        <li> 
                             <a class="waves-effect waves-dark" href="http://localhost/499_Project/admin_loginPage.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
                             <span class="hide-menu">Log out </span>
                             </a>

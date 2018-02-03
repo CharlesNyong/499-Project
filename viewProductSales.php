@@ -93,7 +93,7 @@ ob_start();
                 <!-- Sidebar navigation-->
                <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li> 
+                            <li> 
                             <a class="waves-effect waves-dark" href="AdminPage.php" aria-expanded="false"><i class="mdi mdi-gauge"></i>
                             <span class="hide-menu">View Products</span>
                             </a>
@@ -111,18 +111,33 @@ ob_start();
                             <span class="hide-menu">Delete Products</span></a>
                         </li>
                         <li> 
-                            <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
-                            <span class="hide-menu">View Customers</span>
+                            <a class="waves-effect waves-dark" href="viewOrders.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">View sales order</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewProductSales.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Sales per product</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewCustomerInfo.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">View Customer Info</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewCancelledOrders.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Cancelled Orders</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewFailedShipment.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Failed Shipments</span>
                             </a>
                         </li>
                         <li> 
                             <a class="waves-effect waves-dark" href="http://localhost/499_Project/admin_loginPage.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
                             <span class="hide-menu">Log out </span>
-                            </a>
-                        </li>
-                        <li> 
-                            <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
-                            <span class="hide-menu">Data Warehouse </span>
                             </a>
                         </li>
                     </ul>
@@ -147,7 +162,7 @@ ob_start();
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">All Customers</h3>
+                        <h3 class="text-themecolor">Product Sales</h3>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -163,7 +178,7 @@ ob_start();
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">All Orders</h4>
+                                <h4 class="card-title">All Product Sales</h4>
                                 <div class="table-responsive">
                                     <table width="100%" border="1" id="data" class="display" cellspacing="0">
                                         <thead>
@@ -213,7 +228,7 @@ ob_start();
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer">
-                Customers   
+                Product Sales   
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

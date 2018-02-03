@@ -91,7 +91,7 @@ ob_start();
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
-                            <nav class="sidebar-nav">
+                <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li> 
                             <a class="waves-effect waves-dark" href="AdminPage.php" aria-expanded="false"><i class="mdi mdi-gauge"></i>
@@ -111,18 +111,33 @@ ob_start();
                             <span class="hide-menu">Delete Products</span></a>
                         </li>
                         <li> 
-                            <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
-                            <span class="hide-menu">View Users</span>
+                            <a class="waves-effect waves-dark" href="viewOrders.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">View sales order</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewProductSales.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Sales per product</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewCustomerInfo.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">View Customer Info</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewCancelledOrders.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Cancelled Orders</span>
+                            </a>
+                        </li>
+                        <li> 
+                            <a class="waves-effect waves-dark" href="viewFailedShipment.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
+                            <span class="hide-menu">Failed Shipments</span>
                             </a>
                         </li>
                         <li> 
                             <a class="waves-effect waves-dark" href="http://localhost/499_Project/admin_loginPage.php" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
                             <span class="hide-menu">Log out </span>
-                            </a>
-                        </li>
-                        <li> 
-                            <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>
-                            <span class="hide-menu">Data Warehouse </span>
                             </a>
                         </li>
                     </ul>

@@ -18,6 +18,33 @@ function getAllOrders(){
 				
 }
 
+function getFailedShipments(){
+	$connection = getConnection(RETAIL_DB);
+	$strSQL = "SELECT ShipmentDate, ShipmentService, DeliveryStatus FROM tblshipment WHERE DeliveryStatus = 'Failed'";
+	$rsResult = mysqli_query($connection, $strSQL);
+	
+	while ($arrRow = mysqli_fetch_assoc($rsResult)) {
+		$arrReturn[] = $arrRow;
+	}
+
+	return $arrReturn;
+}
+
+function getCancelledOrders(){
+	$connection = getConnection(RETAIL_DB);
+	$strSQL = "SELECT ProductName, Country, OrderStatus 
+				FROM tblorder
+				INNER JOIN tblproduct ON (tblorder.ProductID = tblproduct.ProductID)
+				INNER JOIN tblcustomer ON (tblorder.CustomerID = tblcustomer.CustomerID)
+				WHERE OrderStatus = 'Cancelled'";
+	$rsResult = mysqli_query($connection, $strSQL);
+	while ($arrRow = mysqli_fetch_assoc($rsResult)) {
+		$arrReturn[] = $arrRow;
+	}
+
+	return $arrReturn;				
+}
+
 function getAllSalesPerProduct(){
 	$connection = getConnection(RETAIL_DB);
 	$arrReturn = array();

@@ -3,7 +3,7 @@ include("common.php");
 
 /*TODO: use a css class to change field color when user clicks edit*/ 
 
-$arrOutput = getAllOrders();
+$arrCancelledOrders = getCancelledOrders();
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -162,7 +162,7 @@ ob_start();
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Orders</h3>
+                        <h3 class="text-themecolor">Cancelled Orders</h3>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -178,39 +178,31 @@ ob_start();
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">All Orders</h4>
+                                <h4 class="card-title">Cancelled Orders</h4>
                                 <div class="table-responsive">
                                     <table width="100%" border="1" id="data" class="display" cellspacing="0">
                                         <thead>
                                             <tr>
                                                <!--  <th>#</th> -->
                                                 <th>Product Name</th>
-                                                <th>Total</th>
-                                                <th>Year</th>
+                                                <th>Country</th>
+                                                <th>Order Status</th>
                                             </tr>
                                         </thead>
                                             <tbody>
                                                 <?
-                                                   foreach ($arrOutput as $mixVal => $arrValues) {?>
+                                                    foreach ($arrCancelledOrders as $intIndex => $arrRows) {?>
                                                         <tr>
-                                                            <?foreach ($arrValues as $strCol => $strColVal) {
-                                                                 //echo "Column: ". $strCol . " Val: ". $strColVal . " ";
-                                                                ?>
-                                                                <td>
-                                                                    <? 
-                                                                        if($strCol == "CurrencyType" || $strCol == "USD" || $strCol == "CAD"){
-                                                                            $val = ($strColVal == "USD") ? "USA" : "CANADA";
-                                                                            echo $val;
-                                                                        }
-                                                                        else{
-                                                                            echo $strColVal;
-                                                                        }       
-                                                                    ?>  
-                                                               </td>
+                                                            <?foreach ($arrRows as $strCol => $strColVal){?>
+                                                                <?if($strCol == "CustomerID"){ 
+                                                                    continue;         
+                                                                }
+                                                                else{?>
+                                                                    <td><?echo $strColVal;?></td> 
+                                                                <?}?> 
                                                             <?}?>
                                                         </tr>
-                                                    <?}  
-                                                ?>
+                                                    <?}?>
                                             </tbody>
                                     </table>
                                 </div>
@@ -229,7 +221,7 @@ ob_start();
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer">
-                    Orders   
+                Orders   
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -265,16 +257,6 @@ ob_start();
         $(document).ready(function() {
             $('#data').DataTable(); 
         });
-
-        function editContact(){
-            document.getElementById("blnEdit").value = 1;
-            document.getElementById("editFrm").submit();
-        }
-
-        function updateContact(){
-            document.getElementById("blnSave").value = 1;
-            document.getElementById("editFrm").submit();  
-        }
     </script>
 </body>
 </html>
