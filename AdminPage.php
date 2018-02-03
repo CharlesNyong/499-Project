@@ -34,7 +34,7 @@ ob_start();
     <link href="assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-    <!-- Dashboard 1 Page CSS -->
+    <!-- Dashboard 1 Page CSS -- >
     <link href="css/pages/dashboard.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
