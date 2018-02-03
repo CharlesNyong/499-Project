@@ -35,7 +35,7 @@ ob_start();
 <![endif]-->
 </head>
 
-<body class="fix-header card-no-border fix-sidebar">
+<body class="fix-header card-no-border fix-sidebar" >
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
