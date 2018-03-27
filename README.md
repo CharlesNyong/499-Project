@@ -3,7 +3,7 @@
 
                                                         Datawarehouse System              
                                       
-  The goal of this project is to build a warehouse system that stores retails information from various retail businesses for analytic and historical purposes.
+  The goal of this project is to build a warehouse system that stores sales and other relevant information from an online retail database for the purpose of analysis and history.
   
   
   
