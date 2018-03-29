@@ -16,7 +16,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], $arrLocal_IP)){
 	$db_username = "root";
 	$db_name = "project_499";
 	$host = "localhost";
-	$password = "wils1996";
+	$password = "";
 	// warehouse database variable
 }
 else{
@@ -24,7 +24,7 @@ else{
 	$db_username = "chugh11_499";
 	$db_name = "chugh11_project499";
 	$host = "localhost";
-	$password = "warehouse";
+	$password = "";
 }
 $db_name2 = "retail_warehouse";
   
