@@ -8,7 +8,7 @@
  
                                                          Installation
                                                            
-To see how this system works, you will need to install it locally. To install this system you will need the following:
+To see how this system works, you will need to install it locally. To install this system you will need to do the following:
 
 - Download Appserv apache server from https://www.appserv.org/en/
 
