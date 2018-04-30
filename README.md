@@ -6,7 +6,7 @@
   The goal of this project is to build a warehouse system that stores sales and other relevant information from an online retail database for the purpose of analysis and history. The system provides a chart that allows users to perform analysis on the data in the warehouse.
  
  
-                                                           Installation
+                                                         Installation
                                                            
 To see how this system works, you will need to install it locally. To install this system you will need the following:
 
@@ -21,7 +21,7 @@ To see how this system works, you will need to install it locally. To install th
 - Upon successfull completion of steps 1-4, you should be able to use the link http://localhost/499_Project/queries/wareHouseLogin.php to   access the query system interface (This is where you can perform all sort of analysis on the data in the warehouse)
 
 
-                                                           Technologies and Softwares
+                                                        Technologies and Softwares
                                                            
   - HTML, CSS, Javascript, Chartjs
   - PHP, MySQL
