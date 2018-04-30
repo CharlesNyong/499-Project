@@ -8,11 +8,26 @@
  
                                                            Installation
                                                            
-To see how this system works, you will need to install it locally. to install this system you will need the following:
+To see how this system works, you will need to install it locally. To install this system you will need the following:
 
-- Appserv apache server from https://www.appserv.org/en/
+- Download Appserv apache server from https://www.appserv.org/en/
 
--  
+- After setting up the local server, create two databases called "project_499" and "retail_warehouse" using the "phpMyAdmin" web tool       available with this server. 
+
+- Upload the script files in the "Databases" repository to populate the database with data
+
+- Download the files in this repository into a folder name "499_Project" (create this folder).  
+
+- Upon successfull completion of steps 1-4, you should be able to use the link http://localhost/499_Project/queries/wareHouseLogin.php to   access the query system interface (This is where you can perform all sort of analysis on the data in the warehouse)
+
+
+                                                           Technologies and Softwares
+                                                           
+  - HTML, CSS, Javascript, Chartjs
+  - PHP, MySQL
+  - phpMyAdmin
+  
+                                                            
   
   
   
