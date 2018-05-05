@@ -28,7 +28,8 @@ To see how this system works, you will need to install it locally. To install th
   - phpMyAdmin
   
                                                             
-  
+                                                      Contact
+    if you encounter any issues during the installation process, feel free to contact me at (asikpo@uwindsor.ca) or (2263486563). 
   
   
     
