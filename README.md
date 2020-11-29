@@ -6,8 +6,8 @@
   The goal of this project was to build a warehouse querying system that stores sales and other relevant information from an online retail database for the purpose of analysis and history. The system provides a chart to help users better analyze the data in the warehouse.
   
   
-                                                          Core Project Component
- There two key piece to this warehouse system
+                                                          Core Project Components
+  There are two key pieces to this warehouse system
  
  - The Ecommerce site that supplies data to the warehouse. Can be found here [http://datawarehouse.myweb.cs.uwindsor.ca/manav-499/login.html] 
  - The warehouse component that archieves data for query purposes. [http://datawarehouse.myweb.cs.uwindsor.ca/499_Project/queries/wareHouseQuery.php] 
