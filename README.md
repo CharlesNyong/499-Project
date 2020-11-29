@@ -15,6 +15,8 @@
                                                     
                                                          Project Files
 A lot of the files in this repo are administrative pages that help the ecomerce site manager fufil administrative tasks. Example, viewing cancelled orders, adding products to the site, updating products etc. Hence pages like 'deleteProduct.php', 'addProduct.php' etc.
+
+The Queries folder contains files for the warehouse querying system, example, the warehouse query page.
  
  
                                                          Installation
