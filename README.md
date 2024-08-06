@@ -9,8 +9,8 @@
                                                           Core Project Components
   There are two key pieces to this warehouse system
  
- - The Ecommerce site that supplies data to the warehouse. Can be found here [http://datawarehouse.myweb.cs.uwindsor.ca/manav-499/login.html] 
- - The warehouse component that archieves data for query purposes. [http://datawarehouse.myweb.cs.uwindsor.ca/499_Project/queries/wareHouseQuery.php] 
+ - The Ecommerce site that supplies data to the warehouse. 
+ - The warehouse component that archieves data for query purposes.
   
                                                     
                                                          Project Files
@@ -25,7 +25,7 @@ To see how this system works, you will need to install it locally. To install th
 
 - Download Appserv apache server from https://www.appserv.org/en/
 
-- After setting up the local server, create two databases called "project_499" and "retail_warehouse" using the "phpMyAdmin" web tool       available with this server. 
+- After setting up the local server, create two databases called "project_499" and "retail_warehouse" using the "phpMyAdmin" web tool available with this server. 
 
 - Upload the script files in the "Databases" repository to populate the database with data
 
